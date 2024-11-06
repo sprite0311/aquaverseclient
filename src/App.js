@@ -1,25 +1,28 @@
-import logo from './logo.svg';
+import { BrowserRouter, Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import './App.css';
+import Login from './containers/Login';
+import { Home } from './containers/Home';
+import { useEffect, useState } from 'react';
+// import { SocketContextProvider } from './context/SocketContext';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App =() => {
+  useEffect(() => {
+    if(JSON.parse(localStorage.getItem('profile'))){
+      setIsLogin(true)
+    } else {
+    }
+  }, [])
+  const [isLogin, setIsLogin] = useState(false)
+
+  return(
+    <BrowserRouter>
+      <Routes>
+        <Route exact path='/auth' element={<Login/>} />
+        <Route exact path='/' element={<Home isLogin={isLogin}/>} />
+      </Routes>
+    </BrowserRouter>
+    
+  )
 }
 
 export default App;
